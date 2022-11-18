@@ -28,7 +28,7 @@ app.put('/api/articles/:name/upvote', async (req, res) => {
     const article = await db.collection('articles').findOne({name});
 
     if (article) {
-    res.send(`The ${name} article now has ${article.upvotes} upvotes, yay!`);
+    res.json(article);
     } else {
         res.send('That article does not exist.')
     }
@@ -45,12 +45,14 @@ app.post('/api/articles/:name/comments', async (req, res) => {
     const article = await db.collection('articles').findOne({name});
 
     if (article) {
-    res.send(article.comments);
+    res.json(article);
     } else {
         res.send('That article does not exist.');
     }
 
-})
+});
+
+
 
 connectToDb(()=> {
     console.log('Connected to database!')
